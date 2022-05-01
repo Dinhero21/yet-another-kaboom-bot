@@ -1,4 +1,4 @@
-const Bot = require('./bot.js')
+const Bot = require('./bot')
 const fs = require('fs')
 const path = require('path')
 

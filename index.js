@@ -18,7 +18,7 @@ servers.forEach(server => {
 function loadPlugins (bot) {
   for (const filename of fs.readdirSync('./plugins')) {
     const fullpath = path.join(__dirname, './plugins', filename)
-    
+
     let plugin
 
     try {

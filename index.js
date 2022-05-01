@@ -13,6 +13,10 @@ servers.forEach(server => {
   const bot = new Bot({ host, port })
 
   loadPlugins(bot)
+
+  bot.once('login', () => {
+    bot.createCore()
+  })
 })
 
 function loadPlugins (bot) {
@@ -23,10 +27,10 @@ function loadPlugins (bot) {
 
     try {
       plugin = reload(fullpath)
-    } catch (error) {
-      console.error(error)
-    }
 
-    plugin.inject(bot)
+      plugin.inject(bot)
+    } catch (error) {
+      console.error(`[${filename}] ${error}`)
+    }
   }
 }

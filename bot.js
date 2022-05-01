@@ -1,4 +1,5 @@
 const { createClient } = require('minecraft-protocol')
+const Vec3 = require('vec3')
 const EventEmitter = require('events')
 
 class Bot extends EventEmitter {
@@ -10,11 +11,24 @@ class Bot extends EventEmitter {
     options.username ??= 'Player'
     options.password ??= null
 
+    this.position = new Vec3(null, null, null)
+
     const client = createClient(options)
     this._client = client
 
-    client.on('chat', packet => {
-      this.emit('chat', packet)
+    this.version = client.version
+
+    client.once('login', data => {
+      this.emit('login', data)
+    })
+
+    client.on('chat', data => {
+      this.emit('chat', data)
+    })
+
+    client.on('position', data => {
+      this.position = data
+      this.emit('position', data)
     })
   }
 

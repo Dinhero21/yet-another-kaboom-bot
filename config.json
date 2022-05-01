@@ -1,5 +1,8 @@
 {
   "prefix": {
     "chat": "<"
+  },
+  "core": {
+    "layers": 3
   }
 }

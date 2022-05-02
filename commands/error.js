@@ -1,6 +1,8 @@
 module.exports = {
   chat (handler) {
-    handler.error('Hello World!')
+    const error = handler.args.join(' ')
+
+    handler.error(error)
   },
   name: 'error'
 }

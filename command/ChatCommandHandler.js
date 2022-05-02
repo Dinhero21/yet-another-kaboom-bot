@@ -1,6 +1,5 @@
-const colors = require('../colors.json')
 const CommandHandler = require('./CommandHandler')
-const { tellraw } = require('../util/chat')
+const { tellraw, error } = require('../util/chat')
 
 class ChatCommandHandler extends CommandHandler {
   constructor (args, bot, username) {
@@ -13,8 +12,8 @@ class ChatCommandHandler extends CommandHandler {
     tellraw(this.bot, message, username)
   }
 
-  error (message, username) {
-    this.tellraw({ text: `Error: ${message}`, color: colors.error })
+  error (message, username = this.username) {
+    error(this.bot, message, username)
   }
 }
 

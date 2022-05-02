@@ -7,7 +7,15 @@ function getCommands () {
 
   for (const filename of fs.readdirSync(path.join(__dirname, '../commands/'))) {
     const fullpath = path.join('../commands/', filename)
-    const command = reload(fullpath)
+
+    let command
+
+    try {
+      command = reload(fullpath)
+      command.parsed = true
+    } catch (error) {
+      command = { error, parsed: false }
+    }
 
     commands.push(command)
   }

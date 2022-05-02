@@ -1,8 +1,15 @@
 const CommandHandler = require('./CommandHandler')
+const { tellraw } = require('../util/chat')
 
 class ChatCommandHandler extends CommandHandler {
-  tellraw (message) {
-    console.log(message)
+  constructor (args, bot, username) {
+    super(args, bot)
+
+    this.username = username
+  }
+
+  tellraw (message, username = this.username) {
+    tellraw(this.bot, message, username)
   }
 }
 

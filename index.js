@@ -17,6 +17,14 @@ servers.forEach(server => {
   bot.once('login', () => {
     bot.createCore()
   })
+
+  bot.on('parsed_chat', data => {
+    log(`${data.ansi}`)
+  })
+
+  function log (message) {
+    console.log(`[${server}] ${message}\x1b[0m`)
+  }
 })
 
 function loadPlugins (bot) {

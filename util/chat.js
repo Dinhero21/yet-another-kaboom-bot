@@ -5,7 +5,7 @@ function tellraw (bot, message = null, username = '@a') {
 }
 
 function error (bot, message = null, username = '@a') {
-  this.tellraw({ text: `Error: ${message}`, color: colors.error })
+  return tellraw(bot, { text: `Error: ${message}`, color: colors.error }, username)
 }
 
 module.exports = { tellraw, error }

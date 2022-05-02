@@ -1,7 +1,7 @@
 class CommandHandler {
   constructor (args, bot) {
-    this.bot = bot
     this.args = args
+    this.bot = bot
   }
 }
 

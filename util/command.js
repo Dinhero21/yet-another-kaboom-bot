@@ -5,8 +5,6 @@ const reload = require('require-reload')(require)
 function getCommands () {
   const commands = []
 
-  console.log()
-
   for (const filename of fs.readdirSync(path.join(__dirname, '../commands/'))) {
     const fullpath = path.join('../commands/', filename)
     const command = reload(fullpath)

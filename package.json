@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Dinhero21/yet-another-kaboom-bot#readme",
   "dependencies": {
+    "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "minecraft-protocol": "^1.34.0",
     "require-reload": "^0.2.2",

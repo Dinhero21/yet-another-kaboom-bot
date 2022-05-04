@@ -1,4 +1,5 @@
 const Bot = require('./Bot')
+const DiscordBot = require('./DiscordBot')
 const fs = require('fs')
 const path = require('path')
 const reload = require('require-reload')(require)
@@ -6,6 +7,8 @@ const reload = require('require-reload')(require)
 require('dotenv').config()
 
 const servers = JSON.parse(process.env.SERVERS)
+
+const discord = new DiscordBot({ token: process.env.DISCORD_TOKEN })
 
 servers.forEach(server => {
   const [host, port] = server.split(':')
@@ -20,6 +23,10 @@ servers.forEach(server => {
 
   bot.on('parsed_chat', data => {
     log(`${data.ansi}`)
+  })
+
+  discord.on('messageCreate', message => {
+    bot.core.run(`tellraw @a ${JSON.stringify(message.content)}`)
   })
 
   function log (message) {

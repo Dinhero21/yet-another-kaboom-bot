@@ -2,6 +2,8 @@ const EventEmitter = require('events')
 const { Client, Intents } = require('discord.js')
 
 class DiscordBot extends EventEmitter {
+  bots = {}
+
   constructor (options = {}) {
     super()
 
@@ -15,10 +17,6 @@ class DiscordBot extends EventEmitter {
 
     client.on('ready', () => {
       this.emit('ready')
-    })
-
-    client.on('messageCreate', message => {
-      this.emit('messageCreate', message)
     })
   }
 }

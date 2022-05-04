@@ -1,6 +1,7 @@
 {
   "prefix": {
-    "chat": "<"
+    "chat": "<",
+    "discord": "!"
   },
   "core": {
     "layers": 3

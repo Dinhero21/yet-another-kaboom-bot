@@ -1,4 +1,4 @@
-const Bot = require('./bot')
+const Bot = require('./Bot')
 const fs = require('fs')
 const path = require('path')
 const reload = require('require-reload')(require)

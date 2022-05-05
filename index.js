@@ -15,24 +15,52 @@ loadPlugins('./discord/plugins/', discord)
 servers.forEach(server => {
   const [host, port] = server.split(':')
 
-  const bot = new Bot({ host, port })
+  handleBot()
 
-  discord.bots[server] = bot
+  function handleBot () {
+    const bot = new Bot({ host, port, username: 'asdasd' })
 
-  loadPlugins('./plugins/', bot)
+    if (server in discord) discord.bots[server].removeAllListeners()
 
-  bot.once('login', () => {
-    bot.createCore()
-  })
+    discord.bots[server] = bot
 
-  bot.on('parsed_chat', data => {
-    discord.onParsedChat(data, bot)
+    discord.onBotAdded(bot)
 
-    log(`${data.ansi}`)
-  })
+    loadPlugins('./plugins/', bot)
 
-  function log (message) {
-    console.log(`[${server}] ${message}\x1b[0m`)
+    bot.once('login', () => {
+      bot.createCore()
+    })
+
+    bot.on('parsed_chat', data => {
+      log(`${data.ansi}`)
+    })
+
+    bot.once('end', data => {
+      console.log(server, 'end', data)
+
+      let timeout = 0
+
+      if (data.extra?.find(data => data.text === 'Wait 5 seconds before connecting, thanks! :)')) timeout = 1000 * 6
+
+      setTimeout(handleBot, timeout)
+    })
+
+    // ? Should this be here?
+
+    // bot._client.once('end', reason => {
+    //   log(`End: ${reason}`)
+    //
+    //   setTimeout(handleBot)
+    // })
+
+    bot._client.on('error', error => {
+      log(error)
+    })
+
+    function log (message) {
+      console.info(`[${server}] ${message}\x1b[0m`)
+    }
   }
 })
 

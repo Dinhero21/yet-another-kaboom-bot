@@ -34,6 +34,27 @@ class Bot extends EventEmitter {
       this.position = data
       this.emit('position', data)
     })
+
+    client.once('end', reason => {
+      this.emit('end', reason, 'end')
+    })
+
+    client.once('kick_disconnect', data => {
+      const parsed = JSON.parse(data.reason)
+
+      this.emit('end', parsed, 'kick_disconnect')
+    })
+
+    client.once('disconnect', data => {
+      const parsed = JSON.parse(data.reason)
+
+      this.emit('end', parsed, 'disconnect')
+    })
+
+    // ? Should this be here?
+    client.once('error', error => {
+      this.emit('end', error, 'error')
+    })
   }
 
   write (name, params) {

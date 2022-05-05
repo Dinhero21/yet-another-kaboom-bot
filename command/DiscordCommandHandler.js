@@ -1,5 +1,5 @@
 const CommandHandler = require('./CommandHandler')
-const { MessageEmbed } = require('discord.js')
+const generateErrorEmbed = require('../util/discord')
 
 class DiscordCommandHandler extends CommandHandler {
   constructor (args, bot, minecraft, message) {
@@ -10,20 +10,7 @@ class DiscordCommandHandler extends CommandHandler {
   }
 
   error (error) {
-    const errorEmbed = new MessageEmbed()
-
-    if (error instanceof Error) {
-      errorEmbed
-        .setColor('RED')
-        .setTitle(error.message)
-        .setDescription(error.stack)
-        .setFooter(error.code)
-    } else if (typeof error === 'string') {
-      errorEmbed
-        .setColor('RED')
-        .setTitle('Error')
-        .setDescription(error)
-    } else throw new Error('Invalid error type')
+    const errorEmbed = generateErrorEmbed(error)
 
     this.sendEmbed(errorEmbed)
   }

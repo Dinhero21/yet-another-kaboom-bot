@@ -26,6 +26,8 @@ servers.forEach(server => {
   })
 
   bot.on('parsed_chat', data => {
+    discord.onParsedChat(data, bot)
+
     log(`${data.ansi}`)
   })
 

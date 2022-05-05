@@ -11,6 +11,10 @@ class Bot extends EventEmitter {
     options.username ??= 'Player'
     options.password ??= null
 
+    this.host = options.host
+    this.port = options.port
+    this.server = `${options.host}:${options.port}`
+
     this.position = new Vec3(null, null, null)
 
     const client = createClient(options)

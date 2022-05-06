@@ -1,5 +1,5 @@
 const CommandHandler = require('./CommandHandler')
-const generateErrorEmbed = require('../util/discord')
+const { generateErrorEmbed } = require('../util/discord')
 
 class DiscordCommandHandler extends CommandHandler {
   constructor (args, bot, minecraft, message) {

@@ -3,7 +3,6 @@ const DiscordBot = require('./DiscordBot')
 const fs = require('fs')
 const path = require('path')
 const reload = require('require-reload')(require)
-const request = require('sync-request')
 
 require('dotenv').config()
 
@@ -12,10 +11,6 @@ const servers = JSON.parse(process.env.SERVERS)
 const discord = new DiscordBot({ token: process.env.DISCORD_TOKEN })
 
 loadPlugins('./discord/plugins/', discord)
-
-const response = request('GET', 'https://www.proxy-list.download/api/v1/get?type=socks5')
-
-const proxies = response.getBody('utf8').split('\r\n')
 
 servers.forEach(server => {
   const [host, port] = server.split(':')

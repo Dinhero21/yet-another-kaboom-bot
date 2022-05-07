@@ -25,13 +25,13 @@ servers.forEach(server => {
   function handleBot () {
     const bot = new Bot({ host, port, username: generateRandomUsername() })
 
+    if (server in discord) discord.bots[server].removeAllListeners()
+
+    discord.bots[server] = bot
+
+    discord.onBotAdded(bot)
+
     bot.once('login', () => {
-      if (server in discord) discord.bots[server].removeAllListeners()
-
-      discord.bots[server] = bot
-
-      discord.onBotAdded(bot)
-
       loadPlugins('./plugins/', bot)
 
       bot.createCore()

@@ -1,5 +1,5 @@
 const CommandHandler = require('./CommandHandler')
-const { generateErrorEmbed } = require('../util/discord')
+const { generateErrorEmbed, getTrust } = require('../util/discord')
 
 class DiscordCommandHandler extends CommandHandler {
   constructor (args, bot, minecraft, message) {
@@ -7,6 +7,8 @@ class DiscordCommandHandler extends CommandHandler {
 
     this.minecraft = minecraft
     this.message = message
+
+    this.trust = getTrust(message.member.roles.cache)
   }
 
   error (error) {

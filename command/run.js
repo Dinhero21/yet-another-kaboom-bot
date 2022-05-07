@@ -19,6 +19,11 @@ module.exports = {
       return
     }
 
+    if (command.trust > 0) {
+      handler.error(`This command's trust level (${command.trust}) is bigger than your trust level (0)`)
+      return
+    }
+
     try {
       command.chat(handler)
     } catch (error) {
@@ -37,6 +42,11 @@ module.exports = {
 
     if (!command.discord) {
       handler.error('This command is not supported for discord!')
+      return
+    }
+
+    if (command.trust > handler.trust) {
+      handler.error(`This command's trust level (${command.trust}) is bigger than your trust level (${handler.trust})`)
       return
     }
 

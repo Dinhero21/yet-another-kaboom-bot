@@ -3,6 +3,7 @@ const DiscordBot = require('./DiscordBot')
 const fs = require('fs')
 const path = require('path')
 const reload = require('require-reload')(require)
+const request = require('sync-request')
 
 require('dotenv').config()
 
@@ -12,6 +13,10 @@ const discord = new DiscordBot({ token: process.env.DISCORD_TOKEN })
 
 loadPlugins('./discord/plugins/', discord)
 
+const response = request('GET', 'https://www.proxy-list.download/api/v1/get?type=socks5')
+
+const proxies = response.getBody('utf8').split('\r\n')
+
 servers.forEach(server => {
   const [host, port] = server.split(':')
 
@@ -20,15 +25,15 @@ servers.forEach(server => {
   function handleBot () {
     const bot = new Bot({ host, port, username: generateRandomUsername() })
 
-    if (server in discord) discord.bots[server].removeAllListeners()
-
-    discord.bots[server] = bot
-
-    discord.onBotAdded(bot)
-
-    loadPlugins('./plugins/', bot)
-
     bot.once('login', () => {
+      if (server in discord) discord.bots[server].removeAllListeners()
+
+      discord.bots[server] = bot
+
+      discord.onBotAdded(bot)
+
+      loadPlugins('./plugins/', bot)
+
       bot.createCore()
     })
 
@@ -37,11 +42,11 @@ servers.forEach(server => {
     })
 
     bot.once('end', data => {
-      console.log(server, 'end', data)
+      log(`End: ${data}`)
 
-      let timeout = 0
+      let timeout = 1000 * 5
 
-      if (data.extra?.find(data => data.text === 'Wait 5 seconds before connecting, thanks! :)')) timeout = 1000 * 6
+      if (data.extra?.find(data => data.text === 'Wait 5 seconds before connecting, thanks! :)')) timeout = 1000 * 10
 
       setTimeout(handleBot, timeout)
     })
@@ -55,7 +60,7 @@ servers.forEach(server => {
     // })
 
     bot._client.on('error', error => {
-      log(error)
+      log(`Error: ${error}`)
     })
 
     function log (message) {

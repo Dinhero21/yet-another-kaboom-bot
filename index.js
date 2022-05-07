@@ -44,8 +44,7 @@ servers.forEach(server => {
     bot.once('end', data => {
       log(`End: ${data}`)
 
-      // TODO: Fix not reconnecting on ayunami's clone
-      let timeout = 1000 * 3
+      let timeout = server === 'sus.shhnowisnottheti.me:25565' ? 1000 * 10 : 1000
 
       if (data.extra?.find(data => data.text === 'Wait 5 seconds before connecting, thanks! :)')) timeout = 1000 * 6
 

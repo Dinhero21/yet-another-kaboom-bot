@@ -11,6 +11,5 @@
         "ecmaVersion": "latest"
     },
     "rules": {
-      "quote-props": "off"
     }
 }

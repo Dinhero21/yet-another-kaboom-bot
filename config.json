@@ -15,6 +15,10 @@
     "trust": {
       "965410546000216134": 1,
       "965412501170847744": 0.5
-    }
+    },
+    "invite": "https://discord.gg/PRJxNGKSHe"
+  },
+  "minecraft": {
+    "trust": 0
   }
 }

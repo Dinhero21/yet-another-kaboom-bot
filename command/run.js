@@ -1,3 +1,4 @@
+const config = require('../config.json')
 const { getCommandByName } = require('../util/command')
 
 const ChatCommandHandler = require('./ChatCommandHandler')
@@ -19,8 +20,8 @@ module.exports = {
       return
     }
 
-    if (command.trust > 0) {
-      handler.error(`This command's trust level (${command.trust}) is bigger than your trust level (0)`)
+    if (command.trust > config.minecraft.trust) {
+      handler.error(`This command's trust level (${command.trust}) is bigger than your trust level (${config.minecraft.trust})`)
       return
     }
 

@@ -23,6 +23,8 @@ class Bot extends EventEmitter {
     this.version = client.version
 
     client.once('login', data => {
+      this.entityId = data.entityId // Entity id for op detection
+
       this.emit('login', data)
     })
 

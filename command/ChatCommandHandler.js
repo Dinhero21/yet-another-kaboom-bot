@@ -13,8 +13,6 @@ class ChatCommandHandler extends CommandHandler {
   }
 
   error (message, username = this.username) {
-    console.log(message)
-    console.log(typeof message)
     error(this.bot, message instanceof Error ? message.stack : typeof message === 'string' ? message : null, username)
   }
 }

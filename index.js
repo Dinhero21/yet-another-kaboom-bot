@@ -48,12 +48,6 @@ servers.forEach(server => {
 
     // ? Should this be here?
 
-    // bot._client.once('end', reason => {
-    //   log(`End: ${reason}`)
-    //
-    //   setTimeout(handleBot)
-    // })
-
     bot._client.on('error', error => {
       log(`Error: ${error}`)
     })

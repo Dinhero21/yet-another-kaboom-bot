@@ -52,11 +52,6 @@ class Bot extends EventEmitter {
 
       this.emit('end', parsed, 'disconnect')
     })
-
-    // ? Should this be here?
-    // client.once('error', error => {
-    //   this.emit('end', error, 'error')
-    // })
   }
 
   write (name, params) {

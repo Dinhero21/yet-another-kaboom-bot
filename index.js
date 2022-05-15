@@ -46,8 +46,6 @@ servers.forEach(server => {
       setTimeout(handleBot, timeout)
     })
 
-    // ? Should this be here?
-
     bot._client.on('error', error => {
       log(`Error: ${error}`)
     })

@@ -3,6 +3,7 @@ const DiscordBot = require('./DiscordBot')
 const fs = require('fs')
 const path = require('path')
 const reload = require('require-reload')(require)
+const randomstring = require('randomstring')
 
 require('dotenv').config()
 
@@ -18,7 +19,7 @@ servers.forEach(server => {
   handleBot()
 
   function handleBot () {
-    const bot = new Bot({ host, port, username: generateRandomUsername() })
+    const bot = new Bot({ host, port, username: randomstring.generate(8) })
 
     if (server in discord) discord.bots[server].removeAllListeners()
 
@@ -70,8 +71,4 @@ function loadPlugins (directory, bot) {
       console.error(`[${filename}] ${error}`)
     }
   }
-}
-
-function generateRandomUsername () {
-  return Array.from({ length: 8 }, () => 'abcdefghijklmnopqrstuvwyzABCDEFGHIJKLMNOPQRSTUV0123456789'[Math.floor(Math.random() * 58)]).join('')
 }

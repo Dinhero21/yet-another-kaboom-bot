@@ -52,6 +52,10 @@ class Bot extends EventEmitter {
 
       this.emit('end', parsed, 'disconnect')
     })
+
+    client.on('error', error => {
+      this.emit('end', error, 'error')
+    })
   }
 
   write (name, params) {

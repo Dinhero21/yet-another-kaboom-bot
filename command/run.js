@@ -5,10 +5,10 @@ const ChatCommandHandler = require('./ChatCommandHandler')
 const DiscordCommandHandler = require('./DiscordCommandHandler')
 
 module.exports = {
-  chat (name, args, bot, username) {
+  chat (name, args, bot, username, sender) {
     const command = getCommandByName(name)
 
-    const handler = new ChatCommandHandler(args, bot, username)
+    const handler = new ChatCommandHandler(args, bot, username, sender)
 
     if (!command) {
       handler.error('Unknown Command!')
